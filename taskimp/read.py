@@ -12,7 +12,7 @@ schema = StructType() \
       .add("LV_ActivePower",DoubleType(),True) \
       .add("Wind_Speed",DoubleType(),True) \
       .add("Theoretical_Power_Curve",DoubleType(),True) \
-      .add("Wind Direction",DoubleType(),True) \
+      .add("Wind_Direction",DoubleType(),True) \
       
 kafka_data  = spark.readStream \
         .format("kafka") \

@@ -30,7 +30,7 @@ val =df2.count()
  
 # df2.show()
  
-print("seconf d question answer is:")
+print("second question answer is:")
  
 print(val)
  
@@ -104,6 +104,7 @@ broadcast_df = df.join(broadcast(new_df),
                        df.generation_indicator == new_df.sig_name,
                        "left_outer")
 # Update the 'generation_indicator' column
+
 # broadcast_df = broadcast_df.withColumn("generation_indicator", broadcast_df.sig_mapping_name)
  
 # Drop columns
