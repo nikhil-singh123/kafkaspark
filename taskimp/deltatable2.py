@@ -27,7 +27,7 @@ myschema=StructType([
     ])
  
 kafka_bootstrap_servers = "localhost:9092"
-kafka_topic = "topic2"
+kafka_topic = "kafka"
 checkpoint="/home/xs438-nikjad/Desktop/kafkaspark/checkpoint2"
  
  
