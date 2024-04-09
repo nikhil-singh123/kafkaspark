@@ -33,7 +33,7 @@ val =df2.count()
 print("second question answer is:")
  
 print(val)
- 
+
  
 df2=df.groupBy("signal_date").count()
 df2.show(400)

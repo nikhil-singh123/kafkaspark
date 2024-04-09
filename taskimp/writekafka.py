@@ -38,7 +38,7 @@ query = df.selectExpr("to_json(struct(*)) AS value") \
         .write \
         .format("kafka") \
         .option("kafka.bootstrap.servers", "localhost:9092") \
-        .option("topic", "kafka") \
+        .option("topic", "topic2") \
         .save()
      
 #.option("checkpointLocation", "/home/xs437-sahsha/Desktop/sahilsharma/checkpoint") \
