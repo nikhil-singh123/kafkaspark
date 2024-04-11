@@ -4,19 +4,17 @@ from pyspark.sql.types import StructType, StructField, DoubleType, DateType, Flo
 from pyspark.sql.types import *
 from pyspark.sql.functions import split
  
+
+# Subscriber Task- Write this data received in delta format
 # SparkSession
 spark = SparkSession.builder \
     .appName("deltatable") \
     .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
     .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")\
     .getOrCreate()
+spark.sparkContext.setLogLevel("ERROR")
  
- 
-    # .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-    # .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")\
- 
- 
-# schem
+# schema defining
 myschema=StructType([
     StructField("Date/Time",StringType(),True),
     StructField("LV_ActivePower", DoubleType(), True),
@@ -27,8 +25,8 @@ myschema=StructType([
     ])
  
 kafka_bootstrap_servers = "localhost:9092"
-kafka_topic = "topic2"
-checkpoint="/home/xs438-nikjad/Desktop/kafkaspark/checkpoint2"
+kafka_topic = "task1"
+checkpoint="/home/xs438-nikjad/Desktop/kafkaspark/checkpoint"
  
  
 df = spark \
@@ -71,23 +69,7 @@ update_df = json_expanded_df.withColumn('signal_date',to_date(split(json_expande
     .withColumn("create_ts",date_format(current_timestamp(), 'dd MM yyyy HH:mm:ss'))  \
     .withColumn("signals", struct([json_expanded_df[col].alias(col) for col in signals_map]))\
         .drop("Date/Time","LV_ActivePower","Wind_Speed","Theoretical_Power_Curve","Wind_Direction")
- 
- 
- 
- 
- 
-# writing_df = update_df.writeStream \
-#     .format("console") \
-#     .outputMode("append") \
-#     .start()
- 
-# writing_df.awaitTermination()
- 
- 
- 
-# //delta table making
- 
- 
+  
  
 update_df.printSchema()
  
@@ -97,13 +79,10 @@ query = update_df.writeStream \
         .outputMode("append")\
         .option("mergeSchema", "true")\
         .option("checkpointLocation", checkpoint)\
-       .start("/home/xs438-nikjad/Desktop/kafkaspark/deltatable2")\
-    #    .start()
+       .start("/home/xs438-nikjad/Desktop/kafkaspark/deltatable")\
+    
 query.awaitTermination()  
  
  
- 
- 
-#
 # spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-streaming-kafka_2.11:1.6.3,io.delta:delta-spark_2.12:3.1.0
- 
+                
