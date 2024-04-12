@@ -17,7 +17,7 @@ delta_table_path = "/home/xs438-nikjad/Desktop/kafkaspark/deltatable"
  
 # Read Delta table as DataFrame
 df = spark.read.format("delta").load(delta_table_path)
-df_map=spark.read.format("delta").load(delta_table_path)
+# df_map=spark.read.format("delta").load(delta_table_path)
  
 # Analysis Task - 1. Read the data from delta lake using spark
 print("First question answer:-")

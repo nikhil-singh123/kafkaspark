@@ -14,16 +14,6 @@ spark = SparkSession.builder \
     .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
  
-# schema defining
-myschema=StructType([
-    StructField("Date/Time",StringType(),True),
-    StructField("LV_ActivePower", DoubleType(), True),
-    StructField("Wind_Speed", DoubleType(), True),
-    StructField("Theoretical_Power_Curve", DoubleType(), True),
-    StructField("Wind_Direction", DoubleType(), True),
- 
-    ])
- 
 kafka_bootstrap_servers = "localhost:9092"
 kafka_topic = "task1"
 checkpoint="/home/xs438-nikjad/Desktop/kafkaspark/checkpoint"
@@ -37,7 +27,7 @@ df = spark \
   .option("startingOffsets", "earliest") \
   .load()
  
- 
+ # schema defining
 json_schema=StructType([
     StructField("Date/Time",StringType(),True),
     StructField("LV_ActivePower", DoubleType(), True),
