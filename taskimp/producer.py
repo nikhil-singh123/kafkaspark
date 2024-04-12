@@ -22,7 +22,7 @@ df = spark.read \
     .schema(schema) \
     .csv("/home/xs438-nikjad/Desktop/kafkaspark/dataset/final_data.csv")\
     
-df.show(10)    
+df.tail(10)    
 
 # 2. Publish these records into Kafka in streaming fashion.
 query = df.selectExpr("to_json(struct(*)) AS value") \
