@@ -85,17 +85,17 @@ new_df.printSchema()
  
  
 # 6th question
-broadcast_df = df.join(broadcast(new_df),
-                       df.generation_indicator == new_df.sig_name,
-                       "left_outer")
-# Updating the 'generation_indicator' column
-broadcast_df = broadcast_df.withColumn("generation_indicator", broadcast_df.sig_mapping_name)
+# broadcast_df = df.join(broadcast(new_df),
+#                        df.generation_indicator == new_df.sig_name,
+#                        "left_outer")
+# # Updating the 'generation_indicator' column
+# broadcast_df = broadcast_df.withColumn("generation_indicator", broadcast_df.sig_mapping_name)
  
-# Drop columns
-broadcast_df = broadcast_df.drop("sig_name", "sig_mapping_name")
+# # Drop columns
+# broadcast_df = broadcast_df.drop("sig_name", "sig_mapping_name")
  
-# Showing the updated DataFrame
-broadcast_df.show()
+# # Showing the updated DataFrame
+# broadcast_df.show()
  
  
  
