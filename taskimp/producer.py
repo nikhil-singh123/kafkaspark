@@ -23,15 +23,6 @@ df = spark.read \
     .csv("/home/xs438-nikjad/Desktop/kafkaspark/dataset/final_data.csv")\
     
 df.show(10)    
-#df.printSchema()
-'''
-root
- |-- Date/Time: date (nullable = true)
- |-- LV_ActivePower: double (nullable = true)
- |-- Wind_Speed: double (nullable = true)
- |-- Theoretical_Power_Curve: double (nullable = true)
- |-- Wind_Direction: double (nullable = true)
-'''
 
 # 2. Publish these records into Kafka in streaming fashion.
 query = df.selectExpr("to_json(struct(*)) AS value") \
